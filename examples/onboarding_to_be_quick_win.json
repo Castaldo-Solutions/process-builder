@@ -1,0 +1,36 @@
+{
+  "title": "onboarding_cliente_to_be_quick_win",
+  "legend": false,
+  "phases": [
+    {
+      "name": "TO-BE QUICK WIN - ONBOARDING CLIENTE",
+      "actors": ["Commerciale", "Back Office", "IT"],
+      "elements": [
+        {"id": "s1", "type": "start", "actor": "Commerciale", "label": "Contratto firmato"},
+        {"id": "a1", "type": "action_new", "actor": "Commerciale",
+         "label": "Compilare form digitale in incontro", "tool": "App"},
+        {"id": "a2", "type": "action_auto", "actor": "Back Office",
+         "label": "Creare cartella cliente da template", "tool": "Gestionale"},
+        {"id": "a3", "type": "action_auto", "actor": "Back Office",
+         "label": "Inviare email di benvenuto automatica", "tool": "Email"},
+        {"id": "g1", "type": "gateway_xor", "actor": "IT", "label": "Dati completi?"},
+        {"id": "a4", "type": "action", "actor": "IT",
+         "label": "Creare account nel gestionale", "tool": "Gestionale"},
+        {"id": "e1", "type": "end", "actor": "IT", "label": "Cliente operativo"},
+        {"id": "info1", "type": "info_panel",
+         "label": "VARIANTE ESTERO\nPer i clienti esteri il form include i campi fiscali del paese e la email di benvenuto parte in inglese."},
+        {"id": "info2", "type": "info_panel",
+         "label": "VARIANTE ENTERPRISE\nPer i clienti enterprise l'account viene creato su ambiente dedicato: l'IT riceve un task aggiuntivo di provisioning."}
+      ],
+      "connections": [
+        {"from": "s1", "to": "a1"},
+        {"from": "a1", "to": "a2"},
+        {"from": "a2", "to": "a3"},
+        {"from": "a3", "to": "g1"},
+        {"from": "g1", "to": "a4", "label": "Si", "color": "#00B050"},
+        {"from": "g1", "to": "a1", "label": "No", "color": "#FF0000", "return": true},
+        {"from": "a4", "to": "e1"}
+      ]
+    }
+  ]
+}

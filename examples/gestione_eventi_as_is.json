@@ -1,0 +1,74 @@
+{
+  "title": "gestione_eventi_as_is",
+  "legend": false,
+  "phases": [
+    {
+      "name": "FASE 1 - PRE-EVENTO",
+      "actors": ["Marketing", "Commerciale", "Back Office"],
+      "elements": [
+        {"id": "s1", "type": "start", "actor": "Marketing", "label": "Evento pianificato"},
+        {"id": "a1", "type": "action", "actor": "Marketing", "label": "Creare landing evento", "tool": "CMS"},
+        {"id": "a2", "type": "action", "actor": "Commerciale", "label": "Contattare aziende target", "tool": "Email"},
+        {"id": "a3", "type": "action", "actor": "Commerciale", "label": "Raccogliere iscrizioni e incassi", "tool": "CRM"},
+        {"id": "a4", "type": "action", "actor": "Back Office", "label": "Stampare badge e lista partecipanti", "tool": "Excel"},
+        {"id": "lo1", "type": "link_out", "actor": "Back Office", "link_label": "A"},
+        {"id": "pp1", "type": "pain_point", "target": "a3",
+         "label": "Dati partecipanti duplicati tra CMS, CRM, Excel e tablet"}
+      ],
+      "connections": [
+        {"from": "s1", "to": "a1"},
+        {"from": "a1", "to": "a2"},
+        {"from": "a2", "to": "a3"},
+        {"from": "a3", "to": "a4"},
+        {"from": "a4", "to": "lo1"}
+      ]
+    },
+    {
+      "name": "FASE 2 - IN-EVENTO",
+      "actors": ["Operations", "Tecnici"],
+      "elements": [
+        {"id": "li1", "type": "link_in", "actor": "Operations", "link_label": "A"},
+        {"id": "b1", "type": "action", "actor": "Operations", "label": "Allestire stand e desk", "tool": "Checklist"},
+        {"id": "b2", "type": "action", "actor": "Operations", "label": "Check-in partecipanti", "tool": "App"},
+        {"id": "b3", "type": "action", "actor": "Tecnici", "label": "Gestire impianto audio/video", "tool": "Radio"},
+        {"id": "g1", "type": "gateway_xor", "actor": "Tecnici", "label": "Problema tecnico?"},
+        {"id": "b4", "type": "action", "actor": "Operations", "label": "Decidere: in loco o supporto esterno", "tool": "Radio"},
+        {"id": "lo2", "type": "link_out", "actor": "Operations", "link_label": "B"},
+        {"id": "pp2", "type": "pain_point", "target": "g1",
+         "label": "La radio a volte non prende e si perde tempo"}
+      ],
+      "connections": [
+        {"from": "li1", "to": "b1"},
+        {"from": "b1", "to": "b2"},
+        {"from": "b2", "to": "b3"},
+        {"from": "b3", "to": "g1"},
+        {"from": "g1", "to": "b4", "label": "Si", "color": "#FF0000"},
+        {"from": "g1", "to": "lo2", "label": "No", "color": "#00B050"},
+        {"from": "b4", "to": "lo2"}
+      ]
+    },
+    {
+      "name": "FASE 3 - POST-EVENTO",
+      "actors": ["Amministrazione", "Customer Care"],
+      "elements": [
+        {"id": "li2", "type": "link_in", "actor": "Amministrazione", "link_label": "B"},
+        {"id": "c1", "type": "action", "actor": "Amministrazione", "label": "Scaricare lista dal tablet", "tool": "App"},
+        {"id": "c2", "type": "action", "actor": "Amministrazione", "label": "Emettere fatture", "tool": "Gestionale"},
+        {"id": "c3", "type": "action", "actor": "Amministrazione", "label": "Inviare contenuti evento", "tool": "Email"},
+        {"id": "c4", "type": "action", "actor": "Customer Care", "label": "Inviare sondaggio NPS", "tool": "Email"},
+        {"id": "c5", "type": "action", "actor": "Customer Care", "label": "Riportare feedback per marketing", "tool": "Excel"},
+        {"id": "e1", "type": "end", "actor": "Customer Care", "label": "Evento chiuso"},
+        {"id": "pp3", "type": "pain_point", "target": "c4",
+         "label": "Sondaggio inviato tardi: tasso di risposta molto basso"}
+      ],
+      "connections": [
+        {"from": "li2", "to": "c1"},
+        {"from": "c1", "to": "c2"},
+        {"from": "c2", "to": "c3"},
+        {"from": "c3", "to": "c4"},
+        {"from": "c4", "to": "c5"},
+        {"from": "c5", "to": "e1"}
+      ]
+    }
+  ]
+}

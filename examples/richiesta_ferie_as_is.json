@@ -1,0 +1,31 @@
+{
+  "title": "richiesta_ferie_as_is",
+  "legend": true,
+  "phases": [
+    {
+      "name": "PROCESSO - RICHIESTA FERIE",
+      "actors": ["Dipendente", "Responsabile", "HR"],
+      "elements": [
+        {"id": "s1", "type": "start", "actor": "Dipendente", "label": ""},
+        {"id": "a1", "type": "action", "actor": "Dipendente", "label": "Compilare modulo ferie", "tool": "Excel"},
+        {"id": "a2", "type": "action", "actor": "Responsabile", "label": "Valutare richiesta", "tool": "Email"},
+        {"id": "g1", "type": "gateway_xor", "actor": "Responsabile", "label": "Approvata?"},
+        {"id": "a3", "type": "action", "actor": "HR", "label": "Registrare nel gestionale", "tool": "Gestionale"},
+        {"id": "e1", "type": "end", "actor": "HR", "label": "Approvata"},
+        {"id": "e2", "type": "end", "actor": "Responsabile", "label": "Rifiutata"},
+        {"id": "pp1", "type": "pain_point", "actor": "Responsabile", "target": "a2",
+         "label": "Email si perdono tra 100 messaggi al giorno"},
+        {"id": "pp2", "type": "pain_point", "actor": "Dipendente", "target": "a1",
+         "label": "Il dipendente non conosce lo stato della richiesta"}
+      ],
+      "connections": [
+        {"from": "s1", "to": "a1"},
+        {"from": "a1", "to": "a2"},
+        {"from": "a2", "to": "g1"},
+        {"from": "g1", "to": "a3", "label": "Si", "color": "#00B050"},
+        {"from": "a3", "to": "e1"},
+        {"from": "g1", "to": "e2", "label": "No", "color": "#FF0000", "return": true}
+      ]
+    }
+  ]
+}

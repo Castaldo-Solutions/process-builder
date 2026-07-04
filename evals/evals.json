@@ -1,0 +1,83 @@
+{
+  "skill_name": "process-builder",
+  "evals": [
+    {
+      "id": 1,
+      "name": "richiesta-ferie-fase-unica",
+      "prompt": "Dobbiamo mappare il processo di richiesta ferie in azienda. Funziona cosi:\n\nIl dipendente compila una richiesta nel gestionale HR indicando le date. Il sistema invia una notifica via email al responsabile diretto. Il responsabile apre l'email, clicca il link che lo porta nel gestionale, valuta la richiesta (guarda il calendario del team, controlla i saldi ferie residui) e approva o rifiuta. Se approva, il sistema aggiorna automaticamente il saldo ferie e invia conferma al dipendente via email. Se rifiuta, il dipendente riceve una email di rifiuto con la motivazione.\n\nPain point: (1) il responsabile spesso si dimentica di valutare le richieste perche l'email si perde tra le altre; (2) i dipendenti non sanno lo stato della richiesta se non riaprono il gestionale ogni giorno.\n\nCrea il diagramma AS-IS in formato draw.io. Salvalo come file.",
+      "expected_output": "File .drawio a FASE UNICA (non multipla: stessi attori, stessi strumenti, stesso scopo dall'inizio alla fine). Tre lane: Dipendente, Sistema/HR, Responsabile. Deve contenere start, task, un gateway (xor) per l'approvazione, due end (approvata, rifiutata), due pain point. Strumenti annotati (gestionale, email).",
+      "files": [],
+      "assertions": [
+        {"text": "Il file .drawio viene creato ed e XML valido", "type": "programmatic"},
+        {"text": "Il file contiene esattamente UN phase container, NON due o tre (fase unica corretta)", "type": "programmatic"},
+        {"text": "Sono presenti almeno 3 lane con i ruoli attesi", "type": "programmatic"},
+        {"text": "E presente almeno un gateway (rombo) per la decisione di approvazione", "type": "programmatic"},
+        {"text": "Sono presenti 2 pain point con stile rosa/rosso", "type": "programmatic"},
+        {"text": "Le tool label 'Email' e 'Gestionale' appaiono nel file", "type": "programmatic"},
+        {"text": "I pain point sono posizionati fuori dalla lane (non sovrapposti ai task)", "type": "qualitative"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "gestione-eventi-tre-fasi",
+      "prompt": "Voglio mappare il processo di gestione eventi della mia azienda (organizziamo fiere ed eventi B2B). Te lo descrivo:\n\nPRIMA DELL'EVENTO: il team marketing crea la landing dell'evento sul CMS, il team commerciale contatta le aziende target via email e CRM, raccoglie iscrizioni e incassi. Il back office stampa i badge e prepara la lista partecipanti in Excel.\n\nDURANTE L'EVENTO: il team operations allestisce lo stand con i tecnici, accoglie i partecipanti al desk di registrazione (check-in su tablet), distribuisce i badge stampati. I tecnici gestiscono l'impianto audio/video con radio e checklist cartacea. Se c'e un problema tecnico, il tecnico chiama via radio il responsabile operations che decide se risolvere in loco o attivare il supporto esterno.\n\nDOPO L'EVENTO: il team amministrazione scarica la lista partecipanti dal tablet, emette fatture su gestionale, invia via email i contenuti dell'evento (slide, foto). Il customer care invia un sondaggio NPS via email, raccoglie feedback e li riporta in Excel per il team marketing.\n\nPain point noti: (1) i dati dei partecipanti si duplicano tra CMS, CRM, Excel e tablet; (2) in evento, quando un tecnico ha un problema, la radio a volte non prende e si perde tempo; (3) il sondaggio post-evento ha risposta molto bassa perche arriva una settimana dopo l'evento quando il ricordo e sfumato.\n\nCrea il diagramma AS-IS. Salvalo come file.",
+      "expected_output": "File .drawio con TRE fasi (Pre-evento, In-evento, Post-evento) giustificate dal cambio netto di attori, strumenti e scopo operativo. Ogni fase ha la sua lane set. Pain point distribuiti nelle fasi corrette. Almeno un gateway (problema tecnico si/no). Strumenti diversi per fase.",
+      "files": [],
+      "assertions": [
+        {"text": "Il file .drawio viene creato ed e XML valido", "type": "programmatic"},
+        {"text": "Il file contiene ESATTAMENTE 3 phase container", "type": "programmatic"},
+        {"text": "Le 3 fasi sono chiaramente nominate (pre/durante/post evento o equivalente)", "type": "programmatic"},
+        {"text": "Le fasi hanno attori DIVERSI (non gli stessi ripetuti): marketing/commerciale in pre, operations/tecnici in in-evento, amministrazione/customer care in post", "type": "programmatic"},
+        {"text": "Sono presenti almeno 3 pain point", "type": "programmatic"},
+        {"text": "Almeno un gateway e presente (es. problema tecnico)", "type": "programmatic"},
+        {"text": "Strumenti diversi per fase (CMS/CRM in pre; radio/tablet in in-evento; gestionale/email in post)", "type": "programmatic"}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "approvazione-acquisti-as-is",
+      "prompt": "Devo mappare il processo di approvazione acquisti della nostra azienda, aiutami.\n\nQuando un dipendente ha bisogno di comprare qualcosa (es. strumenti di lavoro, hardware), compila un modulo Excel e lo manda via email al suo responsabile. Il responsabile legge l'email, approva o rifiuta via email. Se approvato, il modulo arriva all'ufficio acquisti che cerca il fornitore, chiede tre preventivi via email e sceglie quello piu economico. Poi manda la conferma d'ordine al dipendente e al responsabile. Il dipendente riceve il prodotto, firma la bolla di consegna e la porta fisicamente all'ufficio acquisti. L'ufficio acquisti carica la bolla sul gestionale e chiude la pratica.\n\nI problemi che vediamo: (1) le email si perdono spesso; (2) non sappiamo mai a che punto e una richiesta; (3) la bolla fisica si puo perdere nel tragitto tra scrivanie.\n\nCrea il diagramma AS-IS.",
+      "expected_output": "File .drawio AS-IS a FASE UNICA (stesso scopo, attori in sequenza ma nessun cambio netto di gruppi). Lane: Dipendente, Responsabile, Ufficio Acquisti. Gateway per l'approvazione. Pain point identificati. Strumenti: Email, Excel, Gestionale.",
+      "files": [],
+      "assertions": [
+        {"text": "Il file .drawio viene creato ed e XML valido", "type": "programmatic"},
+        {"text": "Il file contiene UN phase container (fase unica), NON due o tre", "type": "programmatic"},
+        {"text": "Sono presenti almeno 3 lane distinte", "type": "programmatic"},
+        {"text": "E presente almeno un gateway per l'approvazione", "type": "programmatic"},
+        {"text": "Sono presenti almeno 3 pain point", "type": "programmatic"},
+        {"text": "Le tool label includono Email, Excel, Gestionale", "type": "programmatic"},
+        {"text": "Un END node e presente (chiusura pratica)", "type": "programmatic"}
+      ]
+    },
+    {
+      "id": 4,
+      "name": "onboarding-cliente-to-be",
+      "prompt": "Ho gia mappato l'AS-IS del nostro processo di onboarding clienti. Funziona cosi:\n- Il commerciale raccoglie i dati del cliente su carta durante l'incontro\n- Poi li trascrive a mano nel CRM (operazione manuale)\n- Il back office crea la cartella cliente su Google Drive copiando i dati dal CRM\n- Il back office manda una email di benvenuto manualmente con template fisso\n- L'IT crea l'account nel sistema gestionale con i dati ricevuti via email dal back office\n\nPain point AS-IS: (1) doppia trascrizione carta -> CRM, (2) creazione cartella manuale, (3) IT dipende da email del back office e spesso i dati arrivano incompleti.\n\nVorrei il TO-BE con due varianti: Quick Win e Full Automation.\n\nLa Quick Win deve essere qualcosa che possiamo fare in 2-3 settimane con strumenti gia disponibili (abbiamo HubSpot come CRM, Google Workspace, un gestionale interno).\n\nLa Full Automation deve essere il target ideale con integrazioni profonde.\n\nAttori: Commerciale, Back Office, IT.\n\nCrea entrambi i file.",
+      "expected_output": "DUE file .drawio separati, uno per Quick Win e uno per Full Automation. Entrambi a fase unica. Le 3 lane stesse dell'AS-IS (Commerciale, Back Office, IT). I task automatizzati sono in verde (action_auto), i nuovi task introdotti nel TO-BE sono in azzurro (action_new). I pain point dell'AS-IS NON appaiono. Sintesi testuale con confronto.",
+      "files": [],
+      "assertions": [
+        {"text": "Vengono creati 2 file .drawio separati (quick-win e full-automation)", "type": "programmatic"},
+        {"text": "Entrambi i file sono XML validi", "type": "programmatic"},
+        {"text": "Entrambi i file contengono le 3 lane: Commerciale, Back Office, IT", "type": "programmatic"},
+        {"text": "Almeno un task automatizzato (verde chiaro, action_auto) e presente in ciascun file", "type": "programmatic"},
+        {"text": "Nessun pain point e presente nei TO-BE (sono stati risolti)", "type": "programmatic"},
+        {"text": "La risposta include una sintesi testuale che differenzia Quick Win e Full Automation", "type": "qualitative"},
+        {"text": "La Full Automation ha piu automazioni della Quick Win (maggior copertura dei pain point)", "type": "qualitative"}
+      ]
+    },
+    {
+      "id": 5,
+      "name": "regola-zero-richiesta-vaga",
+      "prompt": "Ciao, vorrei mappare il nostro processo di gestione ordini. Puoi farmi il diagramma?",
+      "expected_output": "NESSUN file generato. L'agente applica la REGOLA ZERO: risponde con UNA domanda di intervista (non un elenco di 20 domande), tipicamente sul trigger o sul contesto del processo. Non inventa attori, strumenti o decisioni.",
+      "files": [],
+      "assertions": [
+        {"text": "Nessun file .drawio o .json viene creato", "type": "programmatic"},
+        {"text": "La risposta contiene una domanda di intervista (contesto/trigger/attori)", "type": "qualitative"},
+        {"text": "La risposta pone UNA sola domanda per turno, come da interview-guide", "type": "qualitative"},
+        {"text": "L'agente non propone un diagramma 'tipico' inventato del processo ordini", "type": "qualitative"},
+        {"text": "Prima di generare, l'agente dichiara o dimostra di voler raccogliere: chi fa cosa, in che ordine/quando, con quale strumento, quali decisioni esistono e da cosa dipendono", "type": "qualitative"}
+      ]
+    }
+  ]
+}
