@@ -1,4 +1,3 @@
 __pycache__/
 *.pyc
 examples/output/
-*.png
