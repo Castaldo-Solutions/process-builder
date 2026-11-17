@@ -1,0 +1,18 @@
+{
+  "name": "process-builder",
+  "displayName": "Process Builder",
+  "version": "1.1.0",
+  "description": "Interview-first business process mapping: Claude asks who does what, with which tool and where it hurts, then draws an AS-IS or TO-BE swimlane diagram in draw.io format, with BPMN notation and pain points.",
+  "author": {
+    "name": "Castaldo Solutions",
+    "email": "info@castaldosolutions.it",
+    "url": "https://www.castaldosolutions.it"
+  },
+  "homepage": "https://www.castaldosolutions.it",
+  "repository": "https://github.com/Castaldo-Solutions/process-builder",
+  "license": "MIT",
+  "keywords": ["business-process", "swimlane", "bpmn", "drawio", "process-mapping", "as-is", "to-be"],
+  "documentationUrl": "https://github.com/Castaldo-Solutions/process-builder#readme",
+  "supportUrl": "https://github.com/Castaldo-Solutions/process-builder/issues",
+  "icon": "./.claude-plugin/icon.png"
+}

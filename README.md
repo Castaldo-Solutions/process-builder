@@ -77,11 +77,18 @@ Copy this repository into a `process-builder` folder inside your Claude skills d
 
 The agent will interview you, confirm the reconstruction, and hand you the `.drawio` file.
 
+The repository is also a Claude plugin: `.claude-plugin/plugin.json` sits next to `SKILL.md`. To try it as a plugin in Claude Code, run `claude --plugin-dir ./process-builder`; the skill then appears as `/process-builder:process-builder`. Copying the folder into your skills directory keeps working as before, with the skill named `/process-builder`.
+
+## What it runs and what it sends
+
+The skill runs one local script, `scripts/generate_swimlane.py`, with Python's standard library only. It reads the JSON file the agent writes from your interview and writes a `.drawio` file next to it. It makes no network calls, sends no data anywhere and stores nothing outside the files you ask for.
+
 ## Repository layout
 
 | Path | Purpose |
 |------|---------|
 | `SKILL.md` | The skill entry point: workflows, hard rules, quality checklist |
+| `.claude-plugin/` | Plugin manifest and icon, for Claude Code and Anthropic's plugin directory |
 | `references/interview-guide.md` | How to run the AS-IS / TO-BE interview, and when a process deserves multiple phases |
 | `references/style-guide.md` | Visual style: shapes, palette, BPMN conventions |
 | `references/drawio-xml-guide.md` | JSON input schema for the generator script |
